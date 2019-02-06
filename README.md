@@ -1,0 +1,1 @@
+Board game library for use on any platform
