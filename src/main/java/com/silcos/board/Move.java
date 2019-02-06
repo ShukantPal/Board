@@ -3,48 +3,58 @@ package com.silcos.board;
 import com.silcos.board.Board.BoardChange;
 import com.silcos.board.Board.BoardChangeType;
 
+/**
+ * {@code Move} objects holds information required to spatially move
+ * pieces on the board from one cell to another.
+ *
+ * If the rules allow, the dest-cell can already hold another piece
+ * that will be killed in the process.
+ *
+ * Moves are deferred immutable, which means that they can be locked
+ * after which they cannot be mutated. (NOT IMPLEMENTED YET)
+ */
 public class Move extends BoardChange {
 
     private static BoardChangeType MOVE_TYPE = BoardChangeType.MOVE;
 
-    int mSrcRow;
-    int mSrcColumn;
-    int mDstRow;
-    int mDstColumn;
+    int srcRow;
+    int srcCol;
+    int dstRow;
+    int dstCol;
 
     public int killedPieceId;
 
     public Move(boolean isVisible, int srcRow, int srcColumn, int dstRow, int dstColumn) {
         mIsVisible = isVisible;
-        mSrcRow = srcRow;
-        mSrcColumn = srcColumn;
-        mDstRow = dstRow;
-        mDstColumn = dstColumn;
+        this.srcRow = srcRow;
+        srcCol = srcColumn;
+        this.dstRow = dstRow;
+        dstCol = dstColumn;
     }
 
-    public int sourceRow() {
-        return mSrcRow;
+    public int getSrcRow() {
+        return srcRow;
     }
 
-    public int sourceColumn() {
-        return mSrcColumn;
+    public int getSrcCol() {
+        return srcCol;
     }
 
-    public void resetSource(int row, int column) {
-        mSrcRow = row;
-        mSrcColumn = column;
+    public void resetSrc(int row, int column) {
+        srcRow = row;
+        srcCol = column;
     }
 
-    public int destinationRow() {
-        return mDstRow;
+    public int getDstRow() {
+        return dstRow;
     }
 
-    public int destinationColumn() {
-        return mDstColumn;
+    public int getDstCol() {
+        return dstCol;
     }
 
-    public void resetDestination(int row, int column) {
-        mDstRow = row;
-        mDstColumn = column;
+    public void resetDst(int row, int column) {
+        dstRow = row;
+        dstCol = column;
     }
 }

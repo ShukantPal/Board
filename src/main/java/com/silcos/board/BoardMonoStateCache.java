@@ -128,10 +128,10 @@ public class BoardMonoStateCache {
     }
 
     public BoardMonoStateCache doMove(Move move, int newCacheRows, int newCacheCols) {
-        long value = getCellStateCache(move.sourceRow(), move.sourceColumn());
+        long value = getCellStateCache(move.getSrcRow(), move.getSrcCol());
         BoardMonoStateCache copy = copyCache(this, newCacheRows, newCacheCols);
-        copy.setCellStateCache(-1, move.sourceRow(), move.sourceColumn());
-        copy.setCellStateCache(value, move.destinationRow(), move.destinationColumn());
+        copy.setCellStateCache(-1, move.getSrcRow(), move.getSrcCol());
+        copy.setCellStateCache(value, move.getDstRow(), move.getDstCol());
         return copy;
     }
 

@@ -18,20 +18,20 @@ public class BoardGame {
             if (isDead())
                 return false;
 
-            final Object srcHolder = mBoard.getCell(yourMove.sourceRow(),
-                    yourMove.sourceColumn()).getHolder();
-            final Object dstHolder = mBoard.getCell(yourMove.destinationRow(),
-                    yourMove.destinationColumn()).getHolder();
+            final Object srcHolder = mBoard.getCell(yourMove.getSrcRow(),
+                    yourMove.getSrcCol()).getHolder();
+            final Object dstHolder = mBoard.getCell(yourMove.getDstRow(),
+                    yourMove.getDstCol()).getHolder();
 
             if(!mBoard.handle(yourMove))
                 return false;
 
             history.add(yourMove);
 
-            dispatchEvent(new MoveEvent(BoardGame.this, yourMove.sourceRow(),
-                    yourMove.sourceColumn(),
-                    yourMove.destinationRow(),
-                    yourMove.destinationColumn(),
+            dispatchEvent(new MoveEvent(BoardGame.this, yourMove.getSrcRow(),
+                    yourMove.getSrcCol(),
+                    yourMove.getDstRow(),
+                    yourMove.getDstCol(),
                     srcHolder,
                     dstHolder));
 
