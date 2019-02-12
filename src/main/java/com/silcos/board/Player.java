@@ -14,12 +14,18 @@ public abstract class Player {
     protected final GameInputController mInputController;
     protected Piece[] myPieces = null;
 
+    private int isTurn;
+
     public Player(BoardGame work, GameInputController inputController) {
         mWork = work;
         mInputController = inputController;
     }
 
-    protected Board boardController() {
+    /**
+     * Override this to return your custom board object.
+     * @return board
+     */
+    protected Board board() {
        return mWork.board();
     }
 
@@ -34,7 +40,18 @@ public abstract class Player {
     }
 
     protected boolean deliverMove(Move turn) {
-        return inputController().placeMove(turn);
+        if (!isTurn()) {
+            throw new IllegalStateException("Player cannot make a move if it is " +
+                    "not their turn.");
+        }
+
+        final boolean wasPlaced = inputController().placeMove(turn);
+
+        if (wasPlaced) {
+            --isTurn;
+        }
+
+        return wasPlaced;
     }
 
     protected void allocatePieces(int count, int myId) {
@@ -45,11 +62,16 @@ public abstract class Player {
         }
     }
 
-    public void resign() {
-
+    public boolean isTurn() {
+        return (isTurn > 0);
     }
 
-    public abstract void onTurn();
+    /**
+     * Call super method.
+     */
+    public void onTurn() {
+        ++isTurn;
+    }
 
     public abstract void initAfterGame();
 
